@@ -1,0 +1,147 @@
+use stud_demo
+Database changed
+
+ create table employee(
+    -> eno int primary key,
+    -> ename varchar(20),
+    -> designation varchar(20),
+    -> salary float,
+    -> date_of_joining varchar(20)
+    -> );
+Query OK, 0 rows affected (0.11 sec)
+
+desc employee;
+-----------------+-------------+------+-----+---------+-------+
+| Field           | Type        | Null | Key | Default | Extra |
++-----------------+-------------+------+-----+---------+-------+
+| eno             | int         | NO   | PRI | NULL    |       |
+| ename           | varchar(20) | YES  |     | NULL    |       |
+| designation     | varchar(20) | YES  |     | NULL    |       |
+| salary          | float       | YES  |     | NULL    |       |
+| date_of_joining | varchar(20) | YES  |     | NULL    |       |
++-----------------+-------------+------+-----+---------+-------+
+
+insert into employee(eno,ename,designation,salary,date_of_joining)values(1,'Mr.Advait','Assistant',53000,'23/4/2022');
+
+insert into employee(eno,ename,designation,salary,date_of_joining
+values(4,'Mr.Raghav','Manager',100000,'11/9/2012');
+
+select * from employee;
++-----+-----------+-------------+--------+-----------------+
+| eno | ename     | designation | salary | date_of_joining |
++-----+-----------+-------------+--------+-----------------+
+|   1 | Mr.Advait | Assistant   |  53000 | 23/4/2022       |
+|   4 | Mr.Raghav | Manager     | 100000 | 11/9/2012       |
++-----+-----------+-------------+--------+-----------------+
+2 rows in set (0.00 sec)
+
+alter table employee add column email varchar(20);
+
+update employee set email='mradvait@gmail.com'where eno=1;
+
+select * from employee;
++-----+-----------+-------------+--------+-----------------+--------------------+
+| eno | ename     | designation | salary | date_of_joining | email              |
++-----+-----------+-------------+--------+-----------------+--------------------+
+|   1 | Mr.Advait | Assistant   |  53000 | 23/4/2022       | mradvait@gmail.com |
+|   4 | Mr.Raghav | Manager     | 100000 | 11/9/2012       | NULL               |
++-----+-----------+-------------+--------+-----------------+--------------------+
+2 rows in set (0.00 sec)
+
+ update employee set salary=salary+(salary*0.05);
+Query OK, 2 rows affected (0.07 sec)
+
+select * from employee;
++-----+-----------+-------------+--------+-----------------+--------------------+
+| eno | ename     | designation | salary | date_of_joining | email              |
++-----+-----------+-------------+--------+-----------------+--------------------+
+|   1 | Mr.Advait | Assistant   |  55650 | 23/4/2022       | mradvait@gmail.com |
+|   4 | Mr.Raghav | Manager     | 105000 | 11/9/2012       | NULL               |
++-----+-----------+-------------+--------+-----------------+--------------------+
+2 rows in set (0.00 sec)
+
+update employee set designation='Sr.Manager'where ename='Mr.Raghav';
+
+select * from employee;
++-----+-----------+-------------+--------+-----------------+--------------------+
+| eno | ename     | designation | salary | date_of_joining | email              |
++-----+-----------+-------------+--------+-----------------+--------------------+
+|   1 | Mr.Advait | Assistant   |  55650 | 23/4/2022       | mradvait@gmail.com |
+|   4 | Mr.Raghav | Sr.Manager  | 105000 | 11/9/2012       | NULL               |
++-----+-----------+-------------+--------+-----------------+--------------------+
+2 rows in set (0.00 sec)
+
+update employee set designation='Sr.Assistant Manager'where designation='Assistant';
+
+select * from employee;
++-----+-----------+----------------------+--------+-----------------+--------------------+
+| eno | ename     | designation          | salary | date_of_joining | email              |
++-----+-----------+----------------------+--------+-----------------+--------------------+
+|   1 | Mr.Advait | Sr.Assistant Manager |  55650 | 23/4/2022       | mradvait@gmail.com |
+|   4 | Mr.Raghav | Sr.Manager           | 105000 | 11/9/2012       | NULL               |
++-----+-----------+----------------------+--------+-----------------+--------------------+
+2 rows in set (0.00 sec)
+
+alter table employee add column city varchar(15);
+
+update employee set city='Mumbai' where ename='Mr.Advait';
+
+select * from employee;
++-----+-----------+----------------------+--------+-----------------+--------------------+------+
+| eno | ename     | designation          | salary | date_of_joining | email              | city |
++-----+-----------+----------------------+--------+-----------------+--------------------+------+
+|   1 | Mr.Advait | Sr.Assistant Manager |  55650 | 23/4/2022       | mradvait@gmail.com | Pune |
+|   4 | Mr.Raghav | Sr.Manager           | 105000 | 11/9/2012       | NULL               | NULL |
++-----+-----------+----------------------+--------+-----------------+--------------------+------+
+2 rows in set (0.00 sec)
+
+ update employee set city='Mumbai'where ename='Mr.Advait';
+Query OK, 1 row affected (0.07 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from employee;
++-----+-----------+----------------------+--------+-----------------+--------------------+--------+
+| eno | ename     | designation          | salary | date_of_joining | email              | city   |
++-----+-----------+----------------------+--------+-----------------+--------------------+--------+
+|   1 | Mr.Advait | Sr.Assistant Manager |  55650 | 23/4/2022       | mradvait@gmail.com | Mumbai |
+|   4 | Mr.Raghav | Sr.Manager           | 105000 | 11/9/2012       | NULL               | NULL   |
++-----+-----------+----------------------+--------+-----------------+--------------------+--------+
+2 rows in set (0.00 sec)
+
+update employee set salary=salary-(salary*0.05)where designation='Sr.Assistant Manager'and city='Mumbai';
+
+ select * from employee;
++-----+-----------+----------------------+---------+-----------------+--------------------+--------+
+| eno | ename     | designation          | salary  | date_of_joining | email              | city   |
++-----+-----------+----------------------+---------+-----------------+--------------------+--------+
+|   1 | Mr.Advait | Sr.Assistant Manager | 52867.5 | 23/4/2022       | mradvait@gmail.com | Mumbai |
+|   4 | Mr.Raghav | Sr.Manager           |  105000 | 11/9/2012       | NULL               | NULL   |
++-----+-----------+----------------------+---------+-----------------+--------------------+--------+
+2 rows in set (0.00 sec)
+
+alter table employee add column phone_no int not null;
+
+update employee set phone_no='1234567890' where ename='Mr.Advait';
+
+select * from employee;
+
+ select * from employee;
++-----+-----------+----------------------+---------+-----------------+--------------------+--------+------------+
+| eno | ename     | designation          | salary  | date_of_joining | email              | city   | phone_no   |
++-----+-----------+----------------------+---------+-----------------+--------------------+--------+------------+
+|   1 | Mr.Advait | Sr.Assistant Manager | 52867.5 | 23/4/2022       | mradvait@gmail.com | Mumbai | 1234567890 |
+|   4 | Mr.Raghav | Sr.Manager           |  105000 | 11/9/2012       | NULL               | NULL   |          0 |
++-----+-----------+----------------------+---------+-----------------+--------------------+--------+------------+
+2 rows in set (0.00 sec)
+
+update employee set date_of_joining='15/06/2019'where ename='Mr.Raghav'and designation='Sr.Manager';
+
+select * from employee;
++-----+-----------+----------------------+---------+-----------------+--------------------+--------+------------+
+| eno | ename     | designation          | salary  | date_of_joining | email              | city   | phone_no   |
++-----+-----------+----------------------+---------+-----------------+--------------------+--------+------------+
+|   1 | Mr.Advait | Sr.Assistant Manager | 52867.5 | 23/4/2022       | mradvait@gmail.com | Mumbai | 1234567890 |
+|   4 | Mr.Raghav | Sr.Manager           |  105000 | 15/06/2019      | NULL               | NULL   |          0 |
++-----+-----------+----------------------+---------+-----------------+--------------------+--------+------------+
+2 rows in set (0.00 sec)
+
