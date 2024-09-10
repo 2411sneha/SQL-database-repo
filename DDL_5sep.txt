@@ -1,0 +1,104 @@
+use stud_demo;
+Database changed
+
+create table person(
+    -> id int not null,
+    -> lastname varchar(15)not null,
+    -> firstname varchar(15)not null,
+    -> age int);
+Query OK, 0 rows affected (0.04 sec)
+
+alter table person modify column age int not null;
+Query OK, 0 rows affected (0.09 sec)
+
+desc person;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| id        | int         | NO   |     | NULL    |       |
+| lastname  | varchar(15) | NO   |     | NULL    |       |
+| firstname | varchar(15) | NO   |     | NULL    |       |
+| age       | int         | NO   |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+4 rows in set (0.07 sec)
+
+insert into person(id,lastname,firstname,age)values(11002,'Bhosale','Sneha',21);
+insert into person(id,lastname,firstname,age)values(110005,'Bhise','Yogita',21);
+insert into person(id,lastname,firstname,age)values(110056,'Khaire','Srushti',21);
+insert into person(id,lastname,firstname,age)values(211201,'Kadam','Pranav',23);
+
+Query OK, 1 row affected (0.01 sec)
+
+select * from person;
++--------+----------+-----------+-----+
+| id     | lastname | firstname | age |
++--------+----------+-----------+-----+
+|  11002 | Bhosale  | Sneha     |  21 |
+| 110005 | Bhise    | Yogita    |  21 |
+| 110056 | Khaire   | Srushti   |  21 |
+| 211201 | Kadam    | Pranav    |  23 |
++--------+----------+-----------+-----+
+4 rows in set (0.00 sec)
+
+alter table person modify column firstname varchar(30);
+Query OK, 0 rows affected (0.08 sec)
+
+alter table person modify column age double;
+Query OK, 4 rows affected (0.08 sec)
+
+alter table person add column mobileno int;
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+alter table person add column state varchar(20);
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+desc person;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| id        | int         | NO   |     | NULL    |       |
+| lastname  | varchar(15) | NO   |     | NULL    |       |
+| firstname | varchar(30) | YES  |     | NULL    |       |
+| age       | double      | YES  |     | NULL    |       |
+| mobileno  | int         | YES  |     | NULL    |       |
+| state     | varchar(20) | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+alter table person drop column mobileno;
+Query OK, 0 rows affected (0.02 sec)
+
+alter table person change firstname First_Name varchar(20);
+Query OK, 4 rows affected (0.08 sec)
+
+alter table person change id std_id int not null;
+Query OK, 0 rows affected (0.02 sec)
+
+desc person;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| std_id     | int         | NO   |     | NULL    |       |
+| lastname   | varchar(15) | NO   |     | NULL    |       |
+| First_Name | varchar(20) | YES  |     | NULL    |       |
+| age        | double      | YES  |     | NULL    |       |
+| state      | varchar(20) | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+alter table person add unique(std_id);
+Query OK, 0 rows affected (0.19 sec)
+
+select * from person;
++--------+----------+------------+------+-------+
+| std_id | lastname | First_Name | age  | state |
++--------+----------+------------+------+-------+
+|  11002 | Bhosale  | Sneha      |   21 | NULL  |
+| 110005 | Bhise    | Yogita     |   21 | NULL  |
+| 110056 | Khaire   | Srushti    |   21 | NULL  |
+| 211201 | Kadam    | Pranav     |   23 | NULL  |
++--------+----------+------------+------+-------+
+4 rows in set (0.00 sec)
+
