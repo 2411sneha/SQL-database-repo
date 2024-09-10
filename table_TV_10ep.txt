@@ -1,0 +1,74 @@
+use stud_demo;
+Database changed
+
+ create table tv(
+    -> type varchar(20)not null,
+    -> com_name varchar(20)not null,
+    -> model varchar(30)not null primary key,
+    -> rating int,
+    -> price float,
+    -> ass_date varchar(10)not null,
+    -> unique(model)
+    -> );
+Query OK, 0 rows affected (0.18 sec)
+
+ desc tv;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| type     | varchar(20) | NO   |     | NULL    |       |
+| com_name | varchar(20) | NO   |     | NULL    |       |
+| model    | varchar(30) | NO   | PRI | NULL    |       |
+| rating   | int         | YES  |     | NULL    |       |
+| price    | float       | YES  |     | NULL    |       |
+| ass_date | varchar(10) | NO   |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+6 rows in set (0.07 sec)
+
+ alter table tv modify column rating float;
+Query OK, 0 rows affected (0.15 sec)
+
+insert into tv(type,com_name,model,rating,price,ass_date)values('QLED','Samsung','DU6900',4.7,40000,'24/01/2024');
+Query OK, 1 row affected (0.07 sec)
+
+mysql> insert into tv(type,com_name,model,rating,price,ass_date)values('NanoCell','LG','Nano81',3.5,35575,'16/05/2019');
+Query OK, 1 row affected (0.07 sec)
+
+mysql> insert into tv(type,com_name,model,rating,price,ass_date)values('OLED 7','Philips','PML9009',5,75000,'25/05/2020');
+Query OK, 1 row affected (0.06 sec)
+
+mysql>
+mysql> insert into tv(type,com_name,model,rating,price,ass_date)values('Sony Bravia 7','Sony','BRAVIA 7',4.2,45000,'02/12/2022');
+Query OK, 1 row affected (0.06 sec)
+
+mysql> insert into tv(type,com_name,model,rating,price,ass_date)values('PRO 2025','Xiaomi','TV A PRO 2025',4.2,50000,'02/09/2024');
+Query OK, 1 row affected (0.07 sec)
+
+delete from tv where com_name='Xiaomi';
+
+ select * from tv;
++---------------+----------+----------+--------+-------+------------+
+| type          | com_name | model    | rating | price | ass_date   |
++---------------+----------+----------+--------+-------+------------+
+| Sony Bravia 7 | Sony     | BRAVIA 7 |    4.2 | 45000 | 02/12/2022 |
+| QLED          | Samsung  | DU6900   |    4.7 | 40000 | 24/01/2024 |
+| NanoCell      | LG       | Nano81   |    3.5 | 35575 | 16/05/2019 |
+| OLED 7        | Philips  | PML9009  |      5 | 75000 | 25/05/2020 |
++---------------+----------+----------+--------+-------+------------+
+4 rows in set (0.00 sec)
+
+insert into tv(type,com_name,model,rating,price,ass_date)values('PRO 2025','Xiaomi','TV A PRO 2025',4.2,50000,'02/09/2024');
+Query OK, 1 row affected (0.06 sec)
+
+ select * from tv;
++---------------+----------+---------------+--------+-------+------------+
+| type          | com_name | model         | rating | price | ass_date   |
++---------------+----------+---------------+--------+-------+------------+
+| Sony Bravia 7 | Sony     | BRAVIA 7      |    4.2 | 45000 | 02/12/2022 |
+| QLED          | Samsung  | DU6900        |    4.7 | 40000 | 24/01/2024 |
+| NanoCell      | LG       | Nano81        |    3.5 | 35575 | 16/05/2019 |
+| OLED 7        | Philips  | PML9009       |      5 | 75000 | 25/05/2020 |
+| PRO 2025      | Xiaomi   | TV A PRO 2025 |    4.2 | 50000 | 02/09/2024 |
++---------------+----------+---------------+--------+-------+------------+
+5 rows in set (0.00 sec)
+
