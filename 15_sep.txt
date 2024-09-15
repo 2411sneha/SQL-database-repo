@@ -1,0 +1,240 @@
+mysql> use stud_demo;
+Database changed
+
+mysql> select * from customer;
++---------+------------+---------+---------------------------+-------+-------------+
+| cust_id | name       | country | product_name              | price | city        |
++---------+------------+---------+---------------------------+-------+-------------+
+|    5245 | Mr.John    | US      | Hellmanns Real Mayonnaise |   184 | Los Angeles |
+|   46785 | Ms.Lorden  | London  | Nestle Wet Napkins        |   450 | Bromley     |
+|   78945 | Ms.Bhosale | India   | Ashirwad Atta             |  1560 | Pune        |
++---------+------------+---------+---------------------------+-------+-------------+
+3 rows in set (0.00 sec)
+
+//In--(to check multiple values of same column)
+mysql> select * from customer where city in('Bromley','Pune');
++---------+------------+---------+--------------------+-------+---------+
+| cust_id | name       | country | product_name       | price | city    |
++---------+------------+---------+--------------------+-------+---------+
+|   46785 | Ms.Lorden  | London  | Nestle Wet Napkins |   450 | Bromley |
+|   78945 | Ms.Bhosale | India   | Ashirwad Atta      |  1560 | Pune    |
++---------+------------+---------+--------------------+-------+---------+
+2 rows in set (0.00 sec)
+
+//NOT
+mysql> select * from customer where not country='Germany';
++---------+------------+---------+---------------------------+-------+-------------+
+| cust_id | name       | country | product_name              | price | city        |
++---------+------------+---------+---------------------------+-------+-------------+
+|    5245 | Mr.John    | US      | Hellmanns Real Mayonnaise |   184 | Los Angeles |
+|   46785 | Ms.Lorden  | London  | Nestle Wet Napkins        |   450 | Bromley     |
+|   78945 | Ms.Bhosale | India   | Ashirwad Atta             |  1560 | Pune        |
++---------+------------+---------+---------------------------+-------+-------------+
+3 rows in set (0.00 sec)
+
+//ORDER by
+mysql> select * from customer order by city desc;
++---------+------------+---------+---------------------------+-------+-------------+
+| cust_id | name       | country | product_name              | price | city        |
++---------+------------+---------+---------------------------+-------+-------------+
+|   78945 | Ms.Bhosale | India   | Ashirwad Atta             |  1560 | Pune        |
+|    5245 | Mr.John    | US      | Hellmanns Real Mayonnaise |   184 | Los Angeles |
+|   46785 | Ms.Lorden  | London  | Nestle Wet Napkins        |   450 | Bromley     |
++---------+------------+---------+---------------------------+-------+-------------+
+3 rows in set (0.06 sec)
+
+mysql> select * from customer where cust_id>=10000 order by cust_id desc;
++---------+------------+---------+--------------------+-------+---------+
+| cust_id | name       | country | product_name       | price | city    |
++---------+------------+---------+--------------------+-------+---------+
+|   78945 | Ms.Bhosale | India   | Ashirwad Atta      |  1560 | Pune    |
+|   46785 | Ms.Lorden  | London  | Nestle Wet Napkins |   450 | Bromley |
++---------+------------+---------+--------------------+-------+---------+
+2 rows in set (0.00 sec)
+
+mysql> select * from customer where cust_id>=10000 and city like'p%' order by cust_id;
++---------+------------+---------+---------------+-------+------+
+| cust_id | name       | country | product_name  | price | city |
++---------+------------+---------+---------------+-------+------+
+|   78945 | Ms.Bhosale | India   | Ashirwad Atta |  1560 | Pune |
++---------+------------+---------+---------------+-------+------+
+1 row in set (0.00 sec)
+
+mysql> select * from employee;
++-----+-----------+----------------------+---------+-----------------+--------------------+--------+------------+
+| eno | ename     | designation          | salary  | date_of_joining | email              | city   | phone_no   |
++-----+-----------+----------------------+---------+-----------------+--------------------+--------+------------+
+|   1 | Mr.Advait | Sr.Assistant Manager | 52867.5 | 23/4/2022       | mradvait@gmail.com | Mumbai | 1234567890 |
+|   4 | Mr.Raghav | Sr.Manager           |  105000 | 15/06/2019      | NULL               | NULL   |          0 |
++-----+-----------+----------------------+---------+-----------------+--------------------+--------+------------+
+2 rows in set (0.00 sec)
+
+mysql> select * from employee order by city;
++-----+-----------+----------------------+---------+-----------------+--------------------+--------+------------+
+| eno | ename     | designation          | salary  | date_of_joining | email              | city   | phone_no   |
++-----+-----------+----------------------+---------+-----------------+--------------------+--------+------------+
+|   4 | Mr.Raghav | Sr.Manager           |  105000 | 15/06/2019      | NULL               | NULL   |          0 |
+|   1 | Mr.Advait | Sr.Assistant Manager | 52867.5 | 23/4/2022       | mradvait@gmail.com | Mumbai | 1234567890 |
++-----+-----------+----------------------+---------+-----------------+--------------------+--------+------------+
+2 rows in set (0.00 sec)
+
+//sql select top clause
+select cust_id from customer where cust_id<6000 limit 1;
++---------+
+| cust_id |
++---------+
+|    5245 |
++---------+
+1 row in set (0.00 sec)
+
+mysql> select * from customer limit 2;
++---------+-----------+---------+---------------------------+-------+-------------+
+| cust_id | name      | country | product_name              | price | city        |
++---------+-----------+---------+---------------------------+-------+-------------+
+|    5245 | Mr.John   | US      | Hellmanns Real Mayonnaise |   184 | Los Angeles |
+|   46785 | Ms.Lorden | London  | Nestle Wet Napkins        |   450 | Bromley     |
++---------+-----------+---------+---------------------------+-------+-------------+
+2 rows in set (0.00 sec)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//Aggregate function
+
+
+mysql> select * from customer;
++---------+------------+---------+---------------------------+-------+-------------+
+| cust_id | name       | country | product_name              | price | city        |
++---------+------------+---------+---------------------------+-------+-------------+
+|    5245 | Mr.John    | US      | Hellmanns Real Mayonnaise |   184 | Los Angeles |
+|   46785 | Ms.Lorden  | London  | Nestle Wet Napkins        |   450 | Bromley     |
+|   78945 | Ms.Bhosale | India   | Ashirwad Atta             |  1560 | Pune        |
++---------+------------+---------+---------------------------+-------+-------------+
+3 rows in set (0.00 sec)
+
+mysql> select min(price) from customer;
++------------+
+| min(price) |
++------------+
+|        184 |
++------------+
+1 row in set (0.01 sec)
+
+mysql> select max(price) from customer;
++------------+
+| max(price) |
++------------+
+|       1560 |
++------------+
+1 row in set (0.00 sec)
+
+mysql> select max(price) as largestprice from customer;
++--------------+
+| largestprice |
++--------------+
+|         1560 |
++--------------+
+1 row in set (0.00 sec)
+
+mysql> select min(price) as largestprice from customer;
++--------------+
+| largestprice |
++--------------+
+|          184 |
++--------------+
+1 row in set (0.00 sec)
+
+mysql> select count(price) from customer where price<2000;
++--------------+
+| count(price) |
++--------------+
+|            3 |
++--------------+
+1 row in set (0.00 sec)
+
+mysql> select avg(price) from customer where price<2000;
++-------------------+
+| avg(price)        |
++-------------------+
+| 731.3333333333334 |
++-------------------+
+1 row in set (0.00 sec)
+
+mysql> select sum(price) from customer where price<1000;
++------------+
+| sum(price) |
++------------+
+|        634 |
++------------+
+1 row in set (0.00 sec)
+
+mysql> select count(*) as cust_id from customer;
++---------+
+| cust_id |
++---------+
+|       3 |
++---------+
+1 row in set (0.01 sec)
+
+
+//Alises -- rename to column on tables temporary
+
+mysql> select cust_id as cid,name as cname from customer as cust;
++-------+------------+
+| cid   | cname      |
++-------+------------+
+|  5245 | Mr.John    |
+| 46785 | Ms.Lorden  |
+| 78945 | Ms.Bhosale |
++-------+------------+
+3 rows in set (0.00 sec)
+
+// SQL union operator
+
+mysql> select cust_id from customer union select type from tv;
++---------------+
+| cust_id       |
++---------------+
+| 5245          |
+| 46785         |
+| 78945         |
+| Sony Bravia 7 |
+| QLED          |
+| OLED 7        |
+| PRO 2025      |
++---------------+
+7 rows in set (0.07 sec)
+
+
+select * from tv;
++---------------+----------+---------------+--------+-------+------------+
+| type          | com_name | model         | rating | price | ass_date   |
++---------------+----------+---------------+--------+-------+------------+
+| Sony Bravia 7 | Sony     | BRAVIA 7      |    4.2 | 45000 | 02/12/2022 |
+| QLED          | Samsung  | DU6900        |    4.7 | 40000 | 24/01/2024 |
+| OLED 7        | Philips  | PML9009       |      5 | 75000 | 25/05/2020 |
+| PRO 2025      | Xiaomi   | TV A PRO 2025 |    4.2 | 50000 | 02/09/2024 |
++---------------+----------+---------------+--------+-------+------------+
+4 rows in set (0.00 sec)
+
+mysql> select city,country from customer where price>200 union select com_name, model from tv where com_name='Reliance';
++---------+---------+
+| city    | country |
++---------+---------+
+| Bromley | London  |
+| Pune    | India   |
++---------+---------+
+2 rows in set (0.00 sec)
+
+
