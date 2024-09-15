@@ -1,0 +1,239 @@
+mysql> desc employee;
++-----------------+-------------+------+-----+---------+-------+
+| Field           | Type        | Null | Key | Default | Extra |
++-----------------+-------------+------+-----+---------+-------+
+| eno             | int         | NO   | PRI | NULL    |       |
+| ename           | varchar(20) | YES  |     | NULL    |       |
+| designation     | varchar(20) | YES  |     | NULL    |       |
+| salary          | float       | YES  |     | NULL    |       |
+| date_of_joining | varchar(20) | YES  |     | NULL    |       |
+| email           | varchar(20) | YES  |     | NULL    |       |
+| city            | varchar(15) | YES  |     | NULL    |       |
+| phone_no        | int         | NO   |     | NULL    |       |
++-----------------+-------------+------+-----+---------+-------+
+8 rows in set (0.00 sec)
+
+mysql> select * from employee;
++-----+-----------+----------------------+---------+-----------------+--------------------+--------+------------+
+| eno | ename     | designation          | salary  | date_of_joining | email              | city   | phone_no   |
++-----+-----------+----------------------+---------+-----------------+--------------------+--------+------------+
+|   1 | Mr.Advait | Sr.Assistant Manager | 52867.5 | 23/4/2022       | mradvait@gmail.com | Mumbai | 1234567890 |
+|   4 | Mr.Raghav | Sr.Manager           |  105000 | 15/06/2019      | NULL               | NULL   |          0 |
++-----+-----------+----------------------+---------+-----------------+--------------------+--------+------------+
+2 rows in set (0.00 sec)
+
+select * from employee where ename='Mr.Raghav';
++-----+-----------+-------------+--------+-----------------+-------+------+----------+
+| eno | ename     | designation | salary | date_of_joining | email | city | phone_no |
++-----+-----------+-------------+--------+-----------------+-------+------+----------+
+|   4 | Mr.Raghav | Sr.Manager  | 105000 | 15/06/2019      | NULL  | NULL |        0 |
++-----+-----------+-------------+--------+-----------------+-------+------+----------+
+1 row in set (0.00 sec)
+
+ select salary,designation from employee where eno=1;
++---------+----------------------+
+| salary  | designation          |
++---------+----------------------+
+| 52867.5 | Sr.Assistant Manager |
++---------+----------------------+
+1 row in set (0.00 sec)
+
+ select * from employee where designation='Sr.Assistant Manager';
++-----+-----------+----------------------+---------+-----------------+--------------------+--------+------------+
+| eno | ename     | designation          | salary  | date_of_joining | email              | city   | phone_no   |
++-----+-----------+----------------------+---------+-----------------+--------------------+--------+------------+
+|   1 | Mr.Advait | Sr.Assistant Manager | 52867.5 | 23/4/2022       | mradvait@gmail.com | Mumbai | 1234567890 |
++-----+-----------+----------------------+---------+-----------------+--------------------+--------+------------+
+1 row in set (0.00 sec)
+
+ select date_of_joining from employee where eno=1;
++-----------------+
+| date_of_joining |
++-----------------+
+| 23/4/2022       |
++-----------------+
+1 row in set (0.00 sec)
+
+//Relational Operator..
+
+> SELECT eno,ename FROM employee WHERE salary>50000;
++-----+-----------+
+| eno | ename     |
++-----+-----------+
+|   1 | Mr.Advait |
+|   4 | Mr.Raghav |
++-----+-----------+
+2 rows in set (0.00 sec)
+
+ select * from employee where salary<20000;
+Empty set (0.00 sec)
+
+mysql> select * from employee;
++-----+-----------+----------------------+---------+-----------------+--------------------+--------+------------+
+| eno | ename     | designation          | salary  | date_of_joining | email              | city   | phone_no   |
++-----+-----------+----------------------+---------+-----------------+--------------------+--------+------------+
+|   1 | Mr.Advait | Sr.Assistant Manager | 52867.5 | 23/4/2022       | mradvait@gmail.com | Mumbai | 1234567890 |
+|   4 | Mr.Raghav | Sr.Manager           |  105000 | 15/06/2019      | NULL               | NULL   |          0 |
++-----+-----------+----------------------+---------+-----------------+--------------------+--------+------------+
+2 rows in set (0.00 sec)
+
+mysql> select * from employee where salary>60000;
++-----+-----------+-------------+--------+-----------------+-------+------+----------+
+| eno | ename     | designation | salary | date_of_joining | email | city | phone_no |
++-----+-----------+-------------+--------+-----------------+-------+------+----------+
+|   4 | Mr.Raghav | Sr.Manager  | 105000 | 15/06/2019      | NULL  | NULL |        0 |
++-----+-----------+-------------+--------+-----------------+-------+------+----------+
+1 row in set (0.00 sec)
+
+mysql> select * from employee where salary>=52867.5;
++-----+-----------+----------------------+---------+-----------------+--------------------+--------+------------+
+| eno | ename     | designation          | salary  | date_of_joining | email              | city   | phone_no   |
++-----+-----------+----------------------+---------+-----------------+--------------------+--------+------------+
+|   1 | Mr.Advait | Sr.Assistant Manager | 52867.5 | 23/4/2022       | mradvait@gmail.com | Mumbai | 1234567890 |
+|   4 | Mr.Raghav | Sr.Manager           |  105000 | 15/06/2019      | NULL               | NULL   |          0 |
++-----+-----------+----------------------+---------+-----------------+--------------------+--------+------------+
+2 rows in set (0.00 sec)
+
+mysql> select * from employee where salary<>56700;
++-----+-----------+----------------------+---------+-----------------+--------------------+--------+------------+
+| eno | ename     | designation          | salary  | date_of_joining | email              | city   | phone_no   |
++-----+-----------+----------------------+---------+-----------------+--------------------+--------+------------+
+|   1 | Mr.Advait | Sr.Assistant Manager | 52867.5 | 23/4/2022       | mradvait@gmail.com | Mumbai | 1234567890 |
+|   4 | Mr.Raghav | Sr.Manager           |  105000 | 15/06/2019      | NULL               | NULL   |          0 |
++-----+-----------+----------------------------------------------------------------------------------------------
+
+// Logical operartor..
+
+select * from employee where designation='Sr.Manager' and salary<=100000;
+Empty set (0.00 sec)
+
+mysql> select * from employee where designation='Sr.Manager' and salary>=100000;
++-----+-----------+-------------+--------+-----------------+-------+------+----------+
+| eno | ename     | designation | salary | date_of_joining | email | city | phone_no |
++-----+-----------+-------------+--------+-----------------+-------+------+----------+
+|   4 | Mr.Raghav | Sr.Manager  | 105000 | 15/06/2019      | NULL  | NULL |        0 |
++-----+-----------+-------------+--------+-----------------+-------+------+----------+
+1 row in set (0.00 sec)
+
+select * from employee where designation='Sr.Manager' or salary>=50000;
++-----+-----------+----------------------+---------+-----------------+--------------------+--------+------------+
+| eno | ename     | designation          | salary  | date_of_joining | email              | city   | phone_no   |
++-----+-----------+----------------------+---------+-----------------+--------------------+--------+------------+
+|   1 | Mr.Advait | Sr.Assistant Manager | 52867.5 | 23/4/2022       | mradvait@gmail.com | Mumbai | 1234567890 |
+|   4 | Mr.Raghav | Sr.Manager           |  105000 | 15/06/2019      | NULL               | NULL   |          0 |
++-----+-----------+----------------------+---------+-----------------+--------------------+--------+------------+
+2 rows in set (0.00 sec)
+
+//distinct ..
+
+select distinct city from employee;
++--------+
+| city   |
++--------+
+| Mumbai |
+| NULL   |
++--------+
+2 rows in set (0.00 sec)
+
+create table customer(
+    -> cust_id int primary key,
+    -> name varchar(25),
+    -> country varchar(20),
+    -> product_name varchar(30),
+    -> price float not null
+    -> );
+Query OK, 0 rows affected (0.14 sec)
+
+mysql> desc customer;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| cust_id      | int         | NO   | PRI | NULL    |       |
+| name         | varchar(25) | YES  |     | NULL    |       |
+| country      | varchar(20) | YES  |     | NULL    |       |
+| product_name | varchar(30) | YES  |     | NULL    |       |
+| price        | float       | NO   |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+5 rows in set (0.01 sec)
+
+mysql> insert into customer(cust_id,name,country,product_name,price)values(05245,'Mr.John','US','Hellmanns Real Mayonnaise',184);
+Query OK, 1 row affected (0.07 sec)
+
+mysql> insert into customer(cust_id,name,country,product_name,price)values(46785,'Ms.Lorden','London','Nestle Wet Napkins',450);
+Query OK, 1 row affected (0.07 sec)
+
+mysql> insert into customer(cust_id,name,country,product_name,price)values(78945,'Ms.Bhosale','India','Ashirwad Atta',1560);
+Query OK, 1 row affected (0.06 sec)
+
+select * from customer;
++---------+------------+---------+---------------------------+-------+
+| cust_id | name       | country | product_name              | price |
++---------+------------+---------+---------------------------+-------+
+|    5245 | Mr.John    | US      | Hellmanns Real Mayonnaise |   184 |
+|   46785 | Ms.Lorden  | London  | Nestle Wet Napkins        |   450 |
+|   78945 | Ms.Bhosale | India   | Ashirwad Atta             |  1560 |
++---------+------------+---------+---------------------------+-------+
+3 rows in set (0.00 sec)
+
+mysql> alter table customer add column city varchar(20);
+Query OK, 0 rows affected (0.09 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> update customer set city='Los Angeles' where country='US';
+Query OK, 1 row affected (0.05 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update customer set city='Bromley' where country='London';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update customer set city='Pune' where country='India';
+Query OK, 1 row affected (0.06 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from customer;
++---------+------------+---------+---------------------------+-------+-------------+
+| cust_id | name       | country | product_name              | price | city        |
++---------+------------+---------+---------------------------+-------+-------------+
+|    5245 | Mr.John    | US      | Hellmanns Real Mayonnaise |   184 | Los Angeles |
+|   46785 | Ms.Lorden  | London  | Nestle Wet Napkins        |   450 | Bromley     |
+|   78945 | Ms.Bhosale | India   | Ashirwad Atta             |  1560 | Pune        |
++---------+------------+---------+---------------------------+-------+-------------+
+3 rows in set (0.00 sec)
+
+mysql> select distinct city from customer where cust_id=46785 and country='London';
++---------+
+| city    |
++---------+
+| Bromley |
++---------+
+1 row in set (0.06 sec)
+
+mysql> select product_name,price from customer where price between 100 and 500;
++---------------------------+-------+
+| product_name              | price |
++---------------------------+-------+
+| Hellmanns Real Mayonnaise |   184 |
+| Nestle Wet Napkins        |   450 |
++---------------------------+-------+
+2 rows in set (0.06 sec)
+
+mysql> select * from customer where city in('India','US');
+Empty set (0.00 sec)
+
+mysql> select * from customer where country in('India','US');
++---------+------------+---------+---------------------------+-------+-------------+
+| cust_id | name       | country | product_name              | price | city        |
++---------+------------+---------+---------------------------+-------+-------------+
+|    5245 | Mr.John    | US      | Hellmanns Real Mayonnaise |   184 | Los Angeles |
+|   78945 | Ms.Bhosale | India   | Ashirwad Atta             |  1560 | Pune        |
++---------+------------+---------+---------------------------+-------+-------------+
+2 rows in set (0.00 sec)
+
+select * from customer where country like'i%';
++---------+------------+---------+---------------+-------+------+
+| cust_id | name       | country | product_name  | price | city |
++---------+------------+---------+---------------+-------+------+
+|   78945 | Ms.Bhosale | India   | Ashirwad Atta |  1560 | Pune |
++---------+------------+---------+---------------+-------+------+
+1 row in set (0.07 sec)
