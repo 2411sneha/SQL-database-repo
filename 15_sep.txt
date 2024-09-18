@@ -237,4 +237,17 @@ mysql> select city,country from customer where price>200 union select com_name, 
 +---------+---------+
 2 rows in set (0.00 sec)
 
+// SQL group by statement
+
+mysql> SELECT count(cust_id), country
+    -> FROM customer
+    -> GROUP BY country
+    -> order by country;
++----------------+---------+
+| count(cust_id) | country |
++----------------+---------+
+|              1 | India   |
+|              1 | London  |
+|              1 | US      |
++----------------+---------+
 
