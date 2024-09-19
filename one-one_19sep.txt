@@ -1,0 +1,118 @@
+mysql> select * from dept;
++-----+------------------+--------+
+| dno | dname            | loc    |
++-----+------------------+--------+
+| 101 | computer         | pune   |
+| 102 | computer science | mumbai |
+| 103 | Quqlity          | mumbai |
++-----+------------------+--------+
+3 rows in set (0.00 sec)
+
+
+mysql> select * from emp;
++-----+------------+-------------+--------+-----------------+------+-------+------+
+| eno | ename      | designation | salary | date_of_joining | dno  | email | city |
++-----+------------+-------------+--------+-----------------+------+-------+------+
+|   1 | Mr. Advait | Assistant   |  54000 | 23/03/2002      |  101 | NULL  | NULL |
+|   2 | Mr. Roy    | ceo         |  57500 | 15/06/2019      |  102 | NULL  | NULL |
+|   3 | Mr. Abhay  | manager     |  60000 | 10/06/2013      |  102 | NULL  | NULL |
+|   4 | Mr.Raghav  | manager     | 420000 | 01/03/2003      |  103 | NULL  | NULL |
++-----+------------+-------------+--------+-----------------+------+-------+------+
+4 rows in set (0.00 sec)
+
+
+mysql> alter table emp add column phone_no int(10);
+Query OK, 0 rows affected, 1 warning (0.11 sec)
+Records: 0  Duplicates: 0  Warnings: 1
+
+mysql> update emp set phone_no=1234567890 where ename='Mr.Advait';
+Query OK, 0 rows affected (0.00 sec)
+Rows matched: 0  Changed: 0  Warnings: 0
+
+mysql> update emp set phone_no=7894561230 where ename='Mr.Roy';
+Query OK, 0 rows affected (0.00 sec)
+Rows matched: 0  Changed: 0  Warnings: 0
+
+mysql> update emp set phone_no=1478523690 where ename='Mr.Abhay';
+Query OK, 0 rows affected (0.00 sec)
+Rows matched: 0  Changed: 0  Warnings: 0
+
+mysql> update emp set phone_no=654789123 where ename='Mr.Raghav';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from emp;
++-----+------------+-------------+--------+-----------------+------+-------+------+-----------+
+| eno | ename      | designation | salary | date_of_joining | dno  | email | city | phone_no  |
++-----+------------+-------------+--------+-----------------+------+-------+------+-----------+
+|   1 | Mr. Advait | Assistant   |  54000 | 23/03/2002      |  101 | NULL  | NULL |      NULL |
+|   2 | Mr. Roy    | ceo         |  57500 | 15/06/2019      |  102 | NULL  | NULL |      NULL |
+|   3 | Mr. Abhay  | manager     |  60000 | 10/06/2013      |  102 | NULL  | NULL |      NULL |
+|   4 | Mr.Raghav  | manager     | 420000 | 01/03/2003      |  103 | NULL  | NULL | 654789123 |
++-----+------------+-------------+--------+-----------------+------+-------+------+-----------+
+4 rows in set (0.00 sec)
+
+mysql> delete from emp where designation='manager';
+Query OK, 2 rows affected (0.03 sec)
+
+mysql> select * from emp;
++-----+------------+-------------+--------+-----------------+------+-------+------+----------+
+| eno | ename      | designation | salary | date_of_joining | dno  | email | city | phone_no |
++-----+------------+-------------+--------+-----------------+------+-------+------+----------+
+|   1 | Mr. Advait | Assistant   |  54000 | 23/03/2002      |  101 | NULL  | NULL |     NULL |
+|   2 | Mr. Roy    | ceo         |  57500 | 15/06/2019      |  102 | NULL  | NULL |     NULL |
++-----+------------+-------------+--------+-----------------+------+-------+------+----------+
+2 rows in set (0.00 sec)
+
+mysql> select count(eno),dname from emp,dept where emp.dno=dept.dno group by dname;
++------------+------------------+
+| count(eno) | dname            |
++------------+------------------+
+|          1 | computer         |
+|          1 | computer science |
++------------+------------------+
+2 rows in set (0.00 sec)
+
+mysql> select ename,dname from emp,dept where emp.dno=dept.dno and designation='ceo' and dname='computer science';
++---------+------------------+
+| ename   | dname            |
++---------+------------------+
+| Mr. Roy | computer science |
++---------+------------------+
+1 row in set (0.00 sec)
+
+mysql> insert into emp(eno,ename,designation,salary,date_of_joining,dno)values(4,'Mr.Raghav','manager',420000,'01/03/2003',103);
+Query OK, 1 row affected (0.06 sec)
+
+mysql> insert into emp(eno,ename,designation,salary,date_of_joining,dno)values(3,'Mr. Abhay','manager',60000,'10/06/2013',102);
+Query OK, 1 row affected (0.06 sec)
+
+mysql> select * from emp;
++-----+------------+-------------+--------+-----------------+------+-------+------+----------+
+| eno | ename      | designation | salary | date_of_joining | dno  | email | city | phone_no |
++-----+------------+-------------+--------+-----------------+------+-------+------+----------+
+|   1 | Mr. Advait | Assistant   |  54000 | 23/03/2002      |  101 | NULL  | NULL |     NULL |
+|   2 | Mr. Roy    | ceo         |  57500 | 15/06/2019      |  102 | NULL  | NULL |     NULL |
+|   3 | Mr. Abhay  | manager     |  60000 | 10/06/2013      |  102 | NULL  | NULL |     NULL |
+|   4 | Mr.Raghav  | manager     | 420000 | 01/03/2003      |  103 | NULL  | NULL |     NULL |
++-----+------------+-------------+--------+-----------------+------+-------+------+----------+
+4 rows in set (0.00 sec)
+
+mysql> select dname from dept,emp where dept.dno=emp.dno and ename='Mr.Advait' and designation=54000;
+Empty set (0.00 sec)
+
+mysql> update emp,dept set date_of_joining='15/06/2019' where dept.dno=emp.dno and dname='computer science' and ename='Mr.Roy';
+Query OK, 0 rows affected (0.04 sec)
+Rows matched: 0  Changed: 0  Warnings: 0
+
+mysql> select * from emp;
++-----+------------+-------------+--------+-----------------+------+-------+------+----------+
+| eno | ename      | designation | salary | date_of_joining | dno  | email | city | phone_no |
++-----+------------+-------------+--------+-----------------+------+-------+------+----------+
+|   1 | Mr. Advait | Assistant   |  54000 | 23/03/2002      |  101 | NULL  | NULL |     NULL |
+|   2 | Mr. Roy    | ceo         |  57500 | 15/06/2019      |  102 | NULL  | NULL |     NULL |
+|   3 | Mr. Abhay  | manager     |  60000 | 10/06/2013      |  102 | NULL  | NULL |     NULL |
+|   4 | Mr.Raghav  | manager     | 420000 | 01/03/2003      |  103 | NULL  | NULL |     NULL |
++-----+------------+-------------+--------+-----------------+------+-------+------+----------+
+4 rows in set (0.00 sec)
+

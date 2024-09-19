@@ -1,0 +1,50 @@
+mysql> use stud_demo;
+Database changed
+
+mysql> create table dept(dno int primary key,dname varchar(20),loc varchar(10));
+Query OK, 0 rows affected (0.29 sec)
+
+mysql> insert into dept(dno,dname,loc)values(101,'computer','pune');
+Query OK, 1 row affected (0.02 sec)
+
+mysql> insert into dept(dno,dname,loc)values(102,'computer science','mumbai');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into dept(dno,dname,loc)values(103,'Quqlity','mumbai');
+Query OK, 1 row affected (0.06 sec)
+
+mysql> desc dept;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| dno   | int         | NO   | PRI | NULL    |       |
+| dname | varchar(20) | YES  |     | NULL    |       |
+| loc   | varchar(10) | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+3 rows in set (0.02 sec)
+
+mysql> select * from dept;
++-----+------------------+--------+
+| dno | dname            | loc    |
++-----+------------------+--------+
+| 101 | computer         | pune   |
+| 102 | computer science | mumbai |
+| 103 | Quqlity          | mumbai |
++-----+------------------+--------+
+3 rows in set (0.00 sec)
+
+mysql> create table emp(eno int primary key,ename varchar(20),designation varchar(20),salary int,date_of_joining varchar(20),dno int references dept(dno));
+Query OK, 0 rows affected (0.12 sec)
+
+mysql> insert into emp(eno,ename,designation,salary,date_of_joining,dno)values(1,'Mr. Advait','Assistant',54000,'23/03/2002',101);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into emp(eno,ename,designation,salary,date_of_joining,dno)values(2,'Mr. Roy','ceo',50000,'15/06/2019',102);
+Query OK, 1 row affected (0.06 sec)
+
+mysql> insert into emp(eno,ename,designation,salary,date_of_joining,dno)values(3,'Mr. Abhay','manager',60000,'10/06/2013',102);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into emp(eno,ename,designation,salary,date_of_joining,dno)values(4,'Mr.Raghav','manager',420000,'01/03/2003',103);
+Query OK, 1 row affected (0.01 sec)
+

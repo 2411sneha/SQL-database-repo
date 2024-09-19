@@ -56,7 +56,7 @@ select * from employee where ename='Mr.Raghav';
 
 //Relational Operator..
 
-> SELECT eno,ename FROM employee WHERE salary>50000;
+SELECT eno,ename FROM employee WHERE salary>50000;
 +-----+-----------+
 | eno | ename     |
 +-----+-----------+

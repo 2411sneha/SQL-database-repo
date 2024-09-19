@@ -1,0 +1,118 @@
+mysql> use stud_demo;
+Database changed
+
+mysql> select * from emp;
++-----+-------------+-------------+--------+-----------------+------+
+| eno | ename       | designation | salary | date_of_joining | dno  |
++-----+-------------+-------------+--------+-----------------+------+
+|   1 | Mr. Advait  | Assistant   |  54000 | 23/03/2002      |  101 |
+|   2 | Mr. Roy     | ceo         |  50000 | 15/06/2019      |  102 |
+|   3 | Mr. Abhay   | manager     |  60000 | 10/06/2013      |  102 |
+|   4 | Mr.Raghav   | manager     | 420000 | 01/03/2003      |  103 |
++-----+-------------+-------------+--------+-----------------+------+
+4 rows in set (0.01 sec)
+
+mysql> alter table emp add column(email varchar(20),city varchar(20));
+Query OK, 0 rows affected (0.07 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from emp order by ename desc;
++-----+-------------+-------------+--------+-----------------+------+-------+------+
+| eno | ename       | designation | salary | date_of_joining | dno  | email | city |
++-----+-------------+-------------+--------+-----------------+------+-------+------+
+|   2 | Mr. Roy     | ceo         |  50000 | 15/06/2019      |  102 | NULL  | NULL |
+|   1 | Mr. Advait  | Assistant   |  54000 | 23/03/2002      |  101 | NULL  | NULL |
+|   3 | Mr. Abhay   | manager     |  60000 | 10/06/2013      |  102 | NULL  | NULL |
+|   4 | Mr.Raghav   | manager     | 420000 | 01/03/2003      |  103 | NULL  | NULL |
++-----+-------------+-------------+--------+-----------------+------+-------+------+
+4 rows in set (0.00 sec)
+
+mysql> select avg(salary),ename from emp group by ename;
++-------------+-------------+
+| avg(salary) | ename       |
++-------------+-------------+
+|  54000.0000 | Mr. Advait  |
+|  50000.0000 | Mr. Roy     |
+|  60000.0000 | Mr. Abhay   |
+| 420000.0000 | Mr.Raghav   |
++-------------+-------------+
+4 rows in set (0.00 sec)
+
+mysql> update emp set salary=salary+(salary*0.15) where ename like '%y' and dno=102;
+Query OK, 2 rows affected (0.08 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> select * from emp;
++-----+-------------+-------------+--------+-----------------+------+-------+------+
+| eno | ename       | designation | salary | date_of_joining | dno  | email | city |
++-----+-------------+-------------+--------+-----------------+------+-------+------+
+|   1 | Mr. Advait  | Assistant   |  54000 | 23/03/2002      |  101 | NULL  | NULL |
+|   2 | Mr. Roy     | ceo         |  57500 | 15/06/2019      |  102 | NULL  | NULL |
+|   3 | Mr. Abhay   | manager     |  69000 | 10/06/2013      |  102 | NULL  | NULL |
+|   4 | Mr.Raghav   | manager     | 420000 | 01/03/2003      |  103 | NULL  | NULL |
++-----+-------------+-------------+--------+-----------------+------+-------+------+
+4 rows in set (0.00 sec)
+
+incomplete 6 query
+
+
+
+
+
+
+
+
+mysql> select * from emp where designation='Manager';
++-----+-------------+-------------+--------+-----------------+------+-------+------+
+| eno | ename       | designation | salary | date_of_joining | dno  | email | city |
++-----+-------------+-------------+--------+-----------------+------+-------+------+
+|   3 | Mr. Abhay   | manager     |  69000 | 10/06/2013      |  102 | NULL  | NULL |
+|   4 | Mr.Raghav   | manager     | 420000 | 01/03/2003      |  103 | NULL  | NULL |
++-----+-------------+-------------+--------+-----------------+------+-------+------+
+2 rows in set (0.06 sec)
+
+mysql> select count(ename) from emp where designation='ceo';
++--------------+
+| count(ename) |
++--------------+
+|            1 |
++--------------+
+1 row in set (0.00 sec)
+
+mysql> select count(ename) from emp where designation='Manager';
++--------------+
+| count(ename) |
++--------------+
+|            2 |
++--------------+
+1 row in set (0.00 sec)
+
+mysql> select count(ename) from emp where designation='Assistant';
++--------------+
+| count(ename) |
++--------------+
+|            1 |
++--------------+
+1 row in set (0.00 sec)
+
+mysql> select ename from emp where salary>60000 and designation='manager' limit 3;
++-------------+
+| ename       |
++-------------+
+| Mr. Abhay   |
+| Mr.Raghav   |
++-------------+
+2 rows in set (0.00 sec)
+
+mysql> delete from emp where designation='manager';
+Query OK, 2 rows affected (0.07 sec)
+
+mysql> select * from emp;
++-----+------------+-------------+--------+-----------------+------+-------+------+
+| eno | ename      | designation | salary | date_of_joining | dno  | email | city |
++-----+------------+-------------+--------+-----------------+------+-------+------+
+|   1 | Mr. Advait | Assistant   |  54000 | 23/03/2002      |  101 | NULL  | NULL |
+|   2 | Mr. Roy    | ceo         |  57500 | 15/06/2019      |  102 | NULL  | NULL |
++-----+------------+-------------+--------+-----------------+------+-------+------+
+2 rows in set (0.00 sec)
+
