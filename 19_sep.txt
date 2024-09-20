@@ -1,0 +1,186 @@
+mysql> use stud_demo;
+Database changed
+
+mysql> create table sales(
+    -> ordno int primary key,
+    -> clientno int not null,
+    -> ordDate varchar(20) not null,
+    -> saleOrder int
+    -> );
+Query OK, 0 rows affected (0.11 sec)
+
+mysql> create table client(
+    -> clientName varchar(20) not null,
+    -> addr varchar(20),
+    -> clientno int not null references sales(clientno)
+    -> );
+Query OK, 0 rows affected (0.11 sec)
+
+mysql> desc sales;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| ordno     | int         | NO   | PRI | NULL    |       |
+| clientno  | int         | NO   |     | NULL    |       |
+| ordDate   | varchar(20) | NO   |     | NULL    |       |
+| saleOrder | int         | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+
+mysql> desc client;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| clientName | varchar(20) | NO   |     | NULL    |       |
+| addr       | varchar(20) | YES  |     | NULL    |       |
+| clientno   | int         | NO   |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> insert into sales(ordno,clientno,ordDate,saleOrder)values(1,53,'15/02/2013',12);
+Query OK, 1 row affected (0.07 sec)
+
+mysql> insert into sales(ordno,clientno,ordDate,saleOrder)values(2,12,'25/06/2018',15);
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into sales(ordno,clientno,ordDate,saleOrder)values(3,24,'30/9/2019',3);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> insert into sales(ordno,clientno,ordDate,saleOrder)values(4,12,'20/5/2012',5);
+Query OK, 1 row affected (0.07 sec)
+
+mysql> insert into sales(ordno,clientno,ordDate,saleOrder)values(5,24,'24/11/2022',46);
+Query OK, 1 row affected (0.07 sec)
+
+mysql> select * from sales;
++-------+----------+------------+-----------+
+| ordno | clientno | ordDate    | saleOrder |
++-------+----------+------------+-----------+
+|     1 |       53 | 15/02/2013 |        12 |
+|     2 |       12 | 25/06/2018 |        15 |
+|     3 |       24 | 30/9/2019  |         3 |
+|     4 |       12 | 20/5/2012  |         5 |
+|     5 |       24 | 24/11/2022 |        46 |
++-------+----------+------------+-----------+
+5 rows in set (0.00 sec)
+
+mysql> insert into client(clientName,addr,clientno)values('sneha','baramari',53);
+Query OK, 1 row affected (0.07 sec)
+
+mysql> insert into client(clientName,addr,clientno)values('srushti','pune',12);
+Query OK, 1 row affected (0.07 sec)
+
+mysql> insert into client(clientName,addr,clientno)values('yogita','vagaj',24);
+Query OK, 1 row affected (0.06 sec)
+
+mysql> select * from client;
++------------+----------+----------+
+| clientName | addr     | clientno |
++------------+----------+----------+
+| sneha      | baramari |       53 |
+| srushti    | pune     |       12 |
+| yogita     | vagaj    |       24 |
++------------+----------+----------+
+3 rows in set (0.00 sec)
+
+mysql> alter table sales add column amt float;
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc sales;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| ordno     | int         | NO   | PRI | NULL    |       |
+| clientno  | int         | NO   |     | NULL    |       |
+| ordDate   | varchar(20) | NO   |     | NULL    |       |
+| saleOrder | int         | YES  |     | NULL    |       |
+| amt       | float       | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> delete from client where clientName like'y%';
+Query OK, 1 row affected (0.04 sec)
+
+mysql> select * from client;
++------------+----------+----------+
+| clientName | addr     | clientno |
++------------+----------+----------+
+| sneha      | baramari |       53 |
+| srushti    | pune     |       12 |
++------------+----------+----------+
+2 rows in set (0.00 sec)
+
+mysql> delete from sales where ordDate='15/02/2013' and clientno in(select clientno from client where clientName='sneha');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from sales;
++-------+----------+------------+-----------+------+
+| ordno | clientno | ordDate    | saleOrder | amt  |
++-------+----------+------------+-----------+------+
+|     2 |       12 | 25/06/2018 |        15 | NULL |
+|     3 |       24 | 30/9/2019  |         3 | NULL |
+|     4 |       12 | 20/5/2012  |         5 | NULL |
+|     5 |       24 | 24/11/2022 |        46 | NULL |
++-------+----------+------------+-----------+------+
+4 rows in set (0.00 sec)
+
+mysql> update sales set ordDate='18/02/2019' where clientno=24;
+Query OK, 2 rows affected (0.07 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> select * from sales;
++-------+----------+------------+-----------+------+
+| ordno | clientno | ordDate    | saleOrder | amt  |
++-------+----------+------------+-----------+------+
+|     2 |       12 | 25/06/2018 |        15 | NULL |
+|     3 |       24 | 18/02/2019 |         3 | NULL |
+|     4 |       12 | 20/5/2012  |         5 | NULL |
+|     5 |       24 | 18/02/2019 |        46 | NULL |
++-------+----------+------------+-----------+------+
+4 rows in set (0.00 sec)
+
+mysql> delete from sales where ordDate<'20/6/2012';
+Query OK, 3 rows affected (0.07 sec)
+
+mysql> select * from sales;
++-------+----------+------------+-----------+------+
+| ordno | clientno | ordDate    | saleOrder | amt  |
++-------+----------+------------+-----------+------+
+|     2 |       12 | 25/06/2018 |        15 | NULL |
++-------+----------+------------+-----------+------+
+1 row in set (0.00 sec)
+
+mysql> update client set addr='pimpri' where clientName='srushti';
+Query OK, 1 row affected (0.07 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from client;
++------------+----------+----------+
+| clientName | addr     | clientno |
++------------+----------+----------+
+| sneha      | baramari |       53 |
+| srushti    | pimpri   |       12 |
++------------+----------+----------+
+2 rows in set (0.00 sec)
+
+mysql>  insert into sales values(4,25,'09/08/2019',2,450.23);
+Query OK, 1 row affected (0.07 sec)
+
+mysql> select * from sales;
++-------+----------+------------+-----------+--------+
+| ordno | clientno | ordDate    | saleOrder | amt    |
++-------+----------+------------+-----------+--------+
+|     2 |       12 | 25/06/2018 |        15 |   NULL |
+|     4 |       25 | 09/08/2019 |         2 | 450.23 |
++-------+----------+------------+-----------+--------+
+2 rows in set (0.00 sec)
+
+mysql> select count(*) as total from client where addr='pimpri';
++-------+
+| total |
++-------+
+|     1 |
++-------+
+1 row in set (0.00 sec)
+
