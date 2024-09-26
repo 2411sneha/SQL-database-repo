@@ -1,0 +1,35 @@
+
+Sample table Name: salesman
+
+salesman_id |    name    |   city   | commission 
+-------------+------------+----------+------------
+        5001 | James Hoog | New York |       0.15
+        5002 | Nail Knite | Paris    |       0.13
+        5005 | Pit Alex   | London   |       0.11
+        5006 | Mc Lyon    | Paris    |       0.14
+        5007 | Paul Adam  | Rome     |       0.13
+        5003 | Lauson Hen | San Jose |       0.12
+        5008 | Rose Willy | NULL     |       0.17
+        5009 | Lauson Hen |  Itly    |       NULL
+
+1.Write a SQL statement that displays all the information about all salespeople.
+2.Write a SQL statement to display specific columns such as names and commissions for all salespeople.
+3.write a SQL query to locate salespeople who live in the city of 'Paris'. Return salesperson's name, city.
+4.write a SQL query to locate salespeople who live in the city of 'San Jose'. Return salesperson's name, commission. 
+5.Write a SQL statement to display columns such as salesman_id ,names and city for all salespeople.
+6.Write a SQL query to display columns such as salesman_id ,names and city for all salespeople.
+7.Write a SQL statement that displays all the information Arranged the output in ascending order by name.
+8.Write a SQL statement that displays all the information Arranged the output in ascending order by salesman_id 
+9.Write a SQL statement that displays all the information Sort the output in descending order on salesman_id.
+10.Write a SQL statement that displays all the information who live in the city of 'San Jose' AND 'Paris' Sort the output in descending order on salesman_id.
+11.write a SQL query to locate who live in the city of 'San Jose' AND 'Paris' Sort the output in ascendingorder on salesman_id.
+12.Write a SQL statement who live in the city of 'San Jose' AND 'Paris' Sort the output in descending order on name    
+13.write a SQL query to locate who live in the city of 'Rome' OR'London' Sort the output in ascending order on salesman_id. 
+14.write a SQL query to locate who live in the city of 'New York' OR'London' Sort the output in ascending order on city   . 
+15.write a SQL query to locate who live in the name of 'James Hoog' OR 'Paul Adam' Sort the output in ascending order on commission.
+16.Write a SQL statement to display specific columns such as names and commissions,city for all salespeople having commission 0.13.
+17.Write a SQL statement to display specific columns such as names and commissions for all salespeople having commission greater than 0.12.
+18.Write a SQL statement to display all salespeople having commission greater than 0.12.
+19.Write a SQL statement that displays all the information salespeople having city is NULL.
+20.Write a SQL statement that displays all the information salespeople having commission is NULL.
+

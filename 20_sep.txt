@@ -1,0 +1,214 @@
+mysql> use stud_demo;
+Database changed
+mysql> create table hospital(
+    -> hno int primary key,
+    -> hname varchar(20),
+    -> city varchar(20),
+    -> est_year numeric(4) check(est_year>1990),
+    -> addr varchar(20)
+    -> );
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> desc hospital;
++----------+--------------+------+-----+---------+-------+
+| Field    | Type         | Null | Key | Default | Extra |
++----------+--------------+------+-----+---------+-------+
+| hno      | int          | NO   | PRI | NULL    |       |
+| hname    | varchar(20)  | YES  |     | NULL    |       |
+| city     | varchar(20)  | YES  |     | NULL    |       |
+| est_year | decimal(4,0) | YES  |     | NULL    |       |
+| addr     | varchar(20)  | YES  |     | NULL    |       |
++----------+--------------+------+-----+---------+-------+
+5 rows in set (0.01 sec)
+
+mysql> insert into hospital(hno,hname,city,est_year,addr)values(101,'balaji','pune',1993,'kharadi road');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into hospital(hno,hname,city,est_year,addr)values(103,'vedant','mumbai',1993,'dharavi');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into hospital(hno,hname,city,est_year,addr)values(105,'birla','chinchwad',1993,'tyr');
+Query OK, 1 row affected (0.07 sec)
+
+mysql> insert into hospital(hno,hname,city,est_year,addr)values(106,'qw','pune',1993,'kalptaru');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from hospital;
++-----+--------+-----------+----------+--------------+
+| hno | hname  | city      | est_year | addr         |
++-----+--------+-----------+----------+--------------+
+| 101 | balaji | pune      |     1993 | kharadi road |
+| 103 | vedant | mumbai    |     1993 | dharavi      |
+| 105 | birla  | chinchwad |     1993 | tyr          |
+| 106 | qw     | pune      |     1993 | kalptaru     |
++-----+--------+-----------+----------+--------------+
+4 rows in set (0.00 sec)
+
+mysql> create table doctor(
+    -> dno int primary key,
+    -> dname varchar(20),
+    -> addr1 varchar(20),
+    -> speciality varchar(20),
+    -> hno int references hospital(hno)
+    -> );
+Query OK, 0 rows affected (0.10 sec)
+
+mysql> desc doctor;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| dno        | int         | NO   | PRI | NULL    |       |
+| dname      | varchar(20) | YES  |     | NULL    |       |
+| addr1      | varchar(20) | YES  |     | NULL    |       |
+| speciality | varchar(20) | YES  |     | NULL    |       |
+| hno        | int         | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> insert into doctor(dno,dname,addr1,speciality,hno)values(1,'dr.joshi','pune','skin',104);
+Query OK, 1 row affected (0.07 sec)
+
+mysql> insert into doctor(dno,dname,addr1,speciality,hno)values(2,'dr.mane','nashik','surgeon',103);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into doctor(dno,dname,addr1,speciality,hno)values(4,'dr.Raghav','pune','skin',101);
+Query OK, 1 row affected (0.07 sec)
+
+mysql> insert into doctor(dno,dname,addr1,speciality,hno)values(5,'dr.Abhay','mumbai','internist',104);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into doctor(dno,dname,addr1,speciality,hno)values(6,'dr.joshi','pune','surgeon',106);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into doctor(dno,dname,addr1,speciality,hno)values(7,'dr.Riya','pune','skin',103);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into doctor(dno,dname,addr1,speciality,hno)values(8,'dr.Gawade','pune','head',104);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from doctor;
++-----+-----------+--------+------------+------+
+| dno | dname     | addr1  | speciality | hno  |
++-----+-----------+--------+------------+------+
+|   1 | dr.joshi  | pune   | skin       |  104 |
+|   2 | dr.mane   | nashik | surgeon    |  103 |
+|   4 | dr.Raghav | pune   | skin       |  101 |
+|   5 | dr.Abhay  | mumbai | internist  |  104 |
+|   6 | dr.joshi  | pune   | surgeon    |  106 |
+|   7 | dr.Riya   | pune   | skin       |  103 |
+|   8 | dr.Gawade | pune   | head       |  104 |
++-----+-----------+--------+------------+------+
+7 rows in set (0.00 sec)
+
+mysql> alter table hospital drop column addr;
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc hospital;
++----------+--------------+------+-----+---------+-------+
+| Field    | Type         | Null | Key | Default | Extra |
++----------+--------------+------+-----+---------+-------+
+| hno      | int          | NO   | PRI | NULL    |       |
+| hname    | varchar(20)  | YES  |     | NULL    |       |
+| city     | varchar(20)  | YES  |     | NULL    |       |
+| est_year | decimal(4,0) | YES  |     | NULL    |       |
++----------+--------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> select dname,hname,speciality from doctor,hospital where doctor.hno=hospital.hno and city='pune';
++-----------+--------+------------+
+| dname     | hname  | speciality |
++-----------+--------+------------+
+| dr.Raghav | balaji | skin       |
+| dr.joshi  | qw     | surgeon    |
++-----------+--------+------------+
+2 rows in set (0.00 sec)
+
+mysql> select hname from hospital,doctor where doctor.hno=hospital.hno and city='pimpri';
+Empty set (0.00 sec)
+
+mysql> select dname from hospital,doctor where doctor.hno=hospital.hno and hname='birla' and city='chinchwad';
+Empty set (0.00 sec)
+
+mysql> select speciality from hospital,doctor where doctor.hno=hospital.hno and hname='ruby';
+Empty set (0.00 sec)
+
+
+
+mysql> update doctor set addr1='pimpri' where hno in(select hno from hospital where hname='balaji');
+Query OK, 1 row affected (0.07 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from doctor;
++-----+-----------+--------+------------+------+
+| dno | dname     | addr1  | speciality | hno  |
++-----+-----------+--------+------------+------+
+|   1 | dr.joshi  | pune   | skin       |  104 |
+|   2 | dr.mane   | nashik | surgeon    |  103 |
+|   4 | dr.Raghav | pimpri | skin       |  101 |
+|   5 | dr.Abhay  | mumbai | internist  |  104 |
+|   6 | dr.joshi  | pune   | surgeon    |  106 |
+|   7 | dr.Riya   | pune   | skin       |  103 |
+|   8 | dr.Gawade | pune   | head       |  104 |
++-----+-----------+--------+------------+------+
+7 rows in set (0.00 sec)
+
+mysql> alter table doctor add column salary float;
+Query OK, 0 rows affected (0.15 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc doctor;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| dno        | int         | NO   | PRI | NULL    |       |
+| dname      | varchar(20) | YES  |     | NULL    |       |
+| addr1      | varchar(20) | YES  |     | NULL    |       |
+| speciality | varchar(20) | YES  |     | NULL    |       |
+| hno        | int         | YES  |     | NULL    |       |
+| salary     | float       | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+6 rows in set (0.01 sec)
+
+mysql> update doctor set salary=45000 where dname='dr.doshi';
+Query OK, 0 rows affected (0.00 sec)
+Rows matched: 0  Changed: 0  Warnings: 0
+
+mysql> update doctor set salary=60000 where dname='dr.mane';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update doctor set salary=600000 where dname='dr.Raghav';
+Query OK, 1 row affected (0.05 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from doctor;
++-----+-----------+--------+------------+------+--------+
+| dno | dname     | addr1  | speciality | hno  | salary |
++-----+-----------+--------+------------+------+--------+
+|   1 | dr.joshi  | pune   | skin       |  104 |   NULL |
+|   2 | dr.mane   | nashik | surgeon    |  103 |  60000 |
+|   4 | dr.Raghav | pimpri | skin       |  101 | 600000 |
+|   5 | dr.Abhay  | mumbai | internist  |  104 |   NULL |
+|   6 | dr.joshi  | pune   | surgeon    |  106 |   NULL |
+|   7 | dr.Riya   | pune   | skin       |  103 |   NULL |
+|   8 | dr.Gawade | pune   | head       |  104 |   NULL |
++-----+-----------+--------+------------+------+--------+
+7 rows in set (0.00 sec)
+
+mysql>  select dname,(salary*12) as annual from doctor,hospital where hospital.hno=doctor.hno and addr1='nashik';
++---------+--------+
+| dname   | annual |
++---------+--------+
+| dr.mane | 720000 |
++---------+--------+
+1 row in set (0.00 sec)
+
+mysql> select count(*) from hospital,doctor where doctor.hno=hospital.hno and city='pune' group by hname;
++----------+
+| count(*) |
++----------+
+|        1 |
+|        1 |
++----------+
+2 rows in set (0.06 sec)

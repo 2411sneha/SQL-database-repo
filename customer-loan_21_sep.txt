@@ -1,0 +1,226 @@
+mysql> create database stud_demo2;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> use stud_demo2;
+Database changed
+
+mysql> create table customer(
+    -> cno int primary key,
+    -> cname varchar(20),
+    -> addr varchar(40),
+    -> city varchar(40)
+    -> );
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> desc customer;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| cno   | int         | NO   | PRI | NULL    |       |
+| cname | varchar(20) | YES  |     | NULL    |       |
+| addr  | varchar(40) | YES  |     | NULL    |       |
+| city  | varchar(40) | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> create table loan(
+    -> lno int primary key,
+    -> lamount float
+    -> );
+Query OK, 0 rows affected (0.10 sec)
+
+mysql> desc loan;
++---------+-------+------+-----+---------+-------+
+| Field   | Type  | Null | Key | Default | Extra |
++---------+-------+------+-----+---------+-------+
+| lno     | int   | NO   | PRI | NULL    |       |
+| lamount | float | YES  |     | NULL    |       |
++---------+-------+------+-----+---------+-------+
+2 rows in set (0.07 sec)
+
+mysql> create table cust_loan(
+    -> cno int references customer(cno),
+    -> lno int references loan(lno),
+    -> lstatus varchar(20) check(lstatus='approve' or lstatus='rejected' or 		 	  	 lstatus='progress')
+    -> );
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> desc cust_loan;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| cno     | int         | YES  |     | NULL    |       |
+| lno     | int         | YES  |     | NULL    |       |
+| lstatus | varchar(20) | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> insert into customer(cno,cname,addr,city)values(101,'ram','dhankawadi','pune');
+Query OK, 1 row affected (0.07 sec)
+
+mysql> insert into customer(cno,cname,addr,city)values(102,'sham','balajinagar','pune');
+Query OK, 1 row affected (0.07 sec)
+
+mysql> insert into customer(cno,cname,addr,city)values(103,'rahul','marketyard','satara');
+Query OK, 1 row affected (0.07 sec)
+
+mysql> insert into customer(cno,cname,addr,city)values(104,'raj','bibwewadi','karad');
+Query OK, 1 row affected (0.07 sec)
+
+mysql> select * from customer;
++-----+-------+-------------+--------+
+| cno | cname | addr        | city   |
++-----+-------+-------------+--------+
+| 101 | ram   | dhankawadi  | pune   |
+| 102 | sham  | balajinagar | pune   |
+| 103 | rahul | marketyard  | satara |
+| 104 | raj   | bibwewadi   | karad  |
++-----+-------+-------------+--------+
+4 rows in set (0.00 sec)
+
+mysql> insert into loan(lno,lamount)values(201,500000);
+Query OK, 1 row affected (0.07 sec)
+
+mysql> insert into loan(lno,lamount)values(202,700000);
+Query OK, 1 row affected (0.07 sec)
+
+mysql> insert into loan(lno,lamount)values(203,800000);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into loan(lno,lamount)values(204,900000);
+Query OK, 1 row affected (0.07 sec)
+
+mysql> select * from loan;
++-----+---------+
+| lno | lamount |
++-----+---------+
+| 201 |  500000 |
+| 202 |  700000 |
+| 203 |  800000 |
+| 204 |  900000 |
++-----+---------+
+4 rows in set (0.00 sec)
+
+mysql> insert into cust_loan(cno,lno,lstatus)values(101,201,'approve');
+Query OK, 1 row affected (0.06 sec)
+
+mysql> insert into cust_loan(cno,lno,lstatus)values(104,201,'approve');
+Query OK, 1 row affected (0.07 sec)
+
+mysql> insert into cust_loan(cno,lno,lstatus)values(102,202,'approve');
+Query OK, 1 row affected (0.06 sec)
+
+mysql> insert into cust_loan(cno,lno,lstatus)values(102,203,'rejected');
+Query OK, 1 row affected (0.07 sec)
+
+mysql> insert into cust_loan(cno,lno,lstatus)values(103,204,'progress');
+Query OK, 1 row affected (0.07 sec)
+
+mysql> select * from cust_loan;
++------+------+----------+
+| cno  | lno  | lstatus  |
++------+------+----------+
+|  101 |  201 | approve  |
+|  104 |  201 | approve  |
+|  102 |  202 | approve  |
+|  102 |  203 | rejected |
+|  103 |  204 | progress |
++------+------+----------+
+5 rows in set (0.00 sec)
+
+mysql> select cname,addr,city from customer,loan,cust_loan where customer.cno=cust_loan.cno and loan.lno=cust_loan.lno and lamount<600000;
++-------+------------+-------+
+| cname | addr       | city  |
++-------+------------+-------+
+| ram   | dhankawadi | pune  |
+| raj   | bibwewadi  | karad |
++-------+------------+-------+
+2 rows in set (0.00 sec)
+
+mysql> select * from customer,cust_loan where customer.cno=cust_loan.cno and cname like 's%';
++-----+-------+-------------+------+------+------+----------+
+| cno | cname | addr        | city | cno  | lno  | lstatus  |
++-----+-------+-------------+------+------+------+----------+
+| 102 | sham  | balajinagar | pune |  102 |  202 | approve  |
+| 102 | sham  | balajinagar | pune |  102 |  203 | rejected |
++-----+-------+-------------+------+------+------+----------+
+2 rows in set (0.00 sec)
+
+mysql> alter table loan add column ltype varchar(20);
+Query OK, 0 rows affected (0.13 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc loan;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| lno     | int         | NO   | PRI | NULL    |       |
+| lamount | float       | YES  |     | NULL    |       |
+| ltype   | varchar(20) | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+mysql> update loan set ltype='car loan' where lno=201;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update loan set ltype='gold loan' where lno=202;
+Query OK, 1 row affected (0.07 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update loan set ltype='home loan' where lno=203;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update loan set ltype='education loan' where lno=204;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from loan;
++-----+---------+----------------+
+| lno | lamount | ltype          |
++-----+---------+----------------+
+| 201 |  500000 | car loan       |
+| 202 |  700000 | gold loan      |
+| 203 |  800000 | home loan      |
+| 204 |  900000 | education loan |
++-----+---------+----------------+
+4 rows in set (0.00 sec)
+
+mysql> select * from customer,loan,cust_loan where customer.cno=cust_loan.cno and loan.lno=cust_loan.lno and lstatus='completed';
+Empty set (0.00 sec)
+
+mysql> select * from customer,loan,cust_loan where customer.cno=cust_loan.cno and loan.lno=cust_loan.lno and lstatus='approve';
++-----+-------+-------------+-------+-----+---------+-----------+------+------+---------+
+| cno | cname | addr        | city  | lno | lamount | ltype     | cno  | lno  | lstatus |
++-----+-------+-------------+-------+-----+---------+-----------+------+------+---------+
+| 101 | ram   | dhankawadi  | pune  | 201 |  500000 | car loan  |  101 |  201 | approve |
+| 104 | raj   | bibwewadi   | karad | 201 |  500000 | car loan  |  104 |  201 | approve |
+| 102 | sham  | balajinagar | pune  | 202 |  700000 | gold loan |  102 |  202 | approve |
++-----+-------+-------------+-------+-----+---------+-----------+------+------+---------+
+3 rows in set (0.00 sec)
+
+
+mysql> select count(cname) from customer,loan,cust_loan where customer.cno=cust_loan.cno and loan.lno=cust_loan.lno and lamount<800000;
++--------------+
+| count(cname) |
++--------------+
+|            3 |
++--------------+
+1 row in set (0.00 sec)
+
+
+mysql> update loan l,customer c,cust_loan cl set lamount=lamount+(lamount*0.02) where l.lno=cl.lno and c.cno=cl.cno and addr='dhankawadi';
+Query OK, 1 row affected (0.07 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from loan;
++-----+---------+----------------+
+| lno | lamount | ltype          |
++-----+---------+----------------+
+| 201 |  530604 | car loan       |
+| 202 |  728280 | gold loan      |
+| 203 |  832320 | home loan      |
+| 204 |  936360 | education loan |
++-----+---------+----------------+
+4 rows in set (0.00 sec)

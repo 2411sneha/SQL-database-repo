@@ -1,0 +1,135 @@
+mysql> use stud_demo2;
+Database changed
+
+mysql> show tables;
++----------------------+
+| Tables_in_stud_demo2 |
++----------------------+
+| cust_loan            |
+| customer             |
+| loan                 |
+| salesman             |
++----------------------+
+4 rows in set (0.09 sec)
+
+mysql> create table orders(
+    -> ord_no int primary key,
+    -> purch_amt float,
+    -> ord_date varchar(20),
+    -> customer_id int,
+    -> salesman_id int
+    -> );
+Query OK, 0 rows affected (0.12 sec)
+
+mysql> desc orders;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| ord_no      | int         | NO   | PRI | NULL    |       |
+| purch_amt   | float       | YES  |     | NULL    |       |
+| ord_date    | varchar(20) | YES  |     | NULL    |       |
+| customer_id | int         | YES  |     | NULL    |       |
+| salesman_id | int         | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> insert into orders values(70001,150.5,'2012-10-05',3005,5002);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> insert into orders values(70009,270.65,'2012-9-10',3001,5005);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into orders values(70002,65.26,'2012-10-05',3002,5001);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into orders values(70004,110.5,'2012-08-17',3009,5003);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into orders values(70007,948.5,'2012-09-10',3005,5002);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into orders values(70005,2400.6,'2012-07-27',3007,5001);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into orders values(70008,5760,'2012-09-10',3002,5001);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into orders values(70010,1983.43,'2012-10-10',3004,5006);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into orders values(70003,2480.4,'2012-10-10',3009,5003);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into orders values(70012,250.45,'2012-06-27',3008,5002);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into orders values(70011,75.29,'2012-08-17',3003,5007);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into orders values(70013,3045.6,'2012-04-25',3002,5001);
+Query OK, 1 row affected (0.07 sec)
+
+mysql> select * from orders;
++--------+-----------+------------+-------------+-------------+
+| ord_no | purch_amt | ord_date   | customer_id | salesman_id |
++--------+-----------+------------+-------------+-------------+
+|  70001 |     150.5 | 2012-10-05 |        3005 |        5002 |
+|  70002 |     65.26 | 2012-10-05 |        3002 |        5001 |
+|  70003 |    2480.4 | 2012-10-10 |        3009 |        5003 |
+|  70004 |     110.5 | 2012-08-17 |        3009 |        5003 |
+|  70005 |    2400.6 | 2012-07-27 |        3007 |        5001 |
+|  70007 |     948.5 | 2012-09-10 |        3005 |        5002 |
+|  70008 |      5760 | 2012-09-10 |        3002 |        5001 |
+|  70009 |    270.65 | 2012-9-10  |        3001 |        5005 |
+|  70010 |   1983.43 | 2012-10-10 |        3004 |        5006 |
+|  70011 |     75.29 | 2012-08-17 |        3003 |        5007 |
+|  70012 |    250.45 | 2012-06-27 |        3008 |        5002 |
+|  70013 |    3045.6 | 2012-04-25 |        3002 |        5001 |
++--------+-----------+------------+-------------+-------------+
+12 rows in set (0.00 sec)
+
+mysql> select sum(purch_amt) as total from orders;
++--------------------+
+| total              |
++--------------------+
+| 17541.180145263672 |
++--------------------+
+1 row in set (0.00 sec)
+
+mysql> select avg(purch_amt) as total from orders;
++-------------------+
+| total             |
++-------------------+
+| 1461.765012105306 |
++-------------------+
+1 row in set (0.00 sec)
+
+mysql> select count(salesman_id) as unique_id from orders group by salesman_id;
++-----------+
+| unique_id |
++-----------+
+|         3 |
+|         4 |
+|         2 |
+|         1 |
+|         1 |
+|         1 |
++-----------+
+6 rows in set (0.05 sec)
+
+mysql> select max(purch_amt) from orders;
++----------------+
+| max(purch_amt) |
++----------------+
+|           5760 |
++----------------+
+1 row in set (0.06 sec)
+
+mysql> select min(purch_amt) from orders;
++----------------+
+| min(purch_amt) |
++----------------+
+|          65.26 |
++----------------+
+1 row in set (0.06 sec)
+

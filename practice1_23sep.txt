@@ -1,0 +1,242 @@
+mysql> use stud_demo2;
+Database changed
+
+mysql> create table salesman(
+    -> salesman_id int primary key,
+    -> name varchar(20),
+    -> city varchar(20) not null,
+    -> commission float
+    -> );
+Query OK, 0 rows affected (0.10 sec)
+
+mysql> insert into salesman values(5001,'James hoog','New York',0.15);
+Query OK, 1 row affected (0.07 sec)
+
+mysql> insert into salesman values(5002,'Nail Knite','Paris',0.13);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into salesman values(5005,'Pit Alex','London',0.11);
+Query OK, 1 row affected (0.06 sec)
+
+mysql> insert into salesman values(5006,'Mc Lyon','Paris',0.14);
+Query OK, 1 row affected (0.07 sec)
+
+mysql> insert into salesman values(5007,'Paul Adam','Rome',0.13);
+Query OK, 1 row affected (0.06 sec)
+
+mysql> insert into salesman values(5003,'Lauson Hen','San Jose',0.12);
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into salesman values(5008,'Rose Willy','',0.17);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into salesman values(5009,'Lauson Hen','Itly',NULL);
+Query OK, 1 row affected (0.07 sec)
+
+mysql> desc salesman;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| salesman_id | int         | NO   | PRI | NULL    |       |
+| name        | varchar(20) | YES  |     | NULL    |       |
+| city        | varchar(20) | NO   |     | NULL    |       |
+| commission  | float       | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+
+mysql> select * from salesman;
++-------------+------------+----------+------------+
+| salesman_id | name       | city     | commission |
++-------------+------------+----------+------------+
+|        5001 | James hoog | New York |       0.15 |
+|        5002 | Nail Knite | Paris    |       0.13 |
+|        5003 | Lauson Hen | San Jose |       0.12 |
+|        5005 | Pit Alex   | London   |       0.11 |
+|        5006 | Mc Lyon    | Paris    |       0.14 |
+|        5007 | Paul Adam  | Rome     |       0.13 |
+|        5008 | Rose Willy |          |       0.17 |
+|        5009 | Lauson Hen | Itly     |       NULL |
++-------------+------------+----------+------------+
+8 rows in set (0.00 sec)
+
+mysql> select name,commission from salesman;
++------------+------------+
+| name       | commission |
++------------+------------+
+| James hoog |       0.15 |
+| Nail Knite |       0.13 |
+| Lauson Hen |       0.12 |
+| Pit Alex   |       0.11 |
+| Mc Lyon    |       0.14 |
+| Paul Adam  |       0.13 |
+| Rose Willy |       0.17 |
+| Lauson Hen |       NULL |
++------------+------------+
+8 rows in set (0.00 sec)
+
+mysql> select name,city from salesman where city='paris';
++------------+-------+
+| name       | city  |
++------------+-------+
+| Nail Knite | Paris |
+| Mc Lyon    | Paris |
++------------+-------+
+2 rows in set (0.00 sec)
+
+mysql> select name,city from salesman where city='San Jose';
++------------+----------+
+| name       | city     |
++------------+----------+
+| Lauson Hen | San Jose |
++------------+----------+
+1 row in set (0.00 sec)
+
+mysql> select salesman_id,name,city from salesman;
++-------------+------------+----------+
+| salesman_id | name       | city     |
++-------------+------------+----------+
+|        5001 | James hoog | New York |
+|        5002 | Nail Knite | Paris    |
+|        5003 | Lauson Hen | San Jose |
+|        5005 | Pit Alex   | London   |
+|        5006 | Mc Lyon    | Paris    |
+|        5007 | Paul Adam  | Rome     |
+|        5008 | Rose Willy |          |
+|        5009 | Lauson Hen | Itly     |
++-------------+------------+----------+
+8 rows in set (0.00 sec)
+
+mysql> select * from salesman order by name;
++-------------+------------+----------+------------+
+| salesman_id | name       | city     | commission |
++-------------+------------+----------+------------+
+|        5001 | James hoog | New York |       0.15 |
+|        5003 | Lauson Hen | San Jose |       0.12 |
+|        5009 | Lauson Hen | Itly     |       NULL |
+|        5006 | Mc Lyon    | Paris    |       0.14 |
+|        5002 | Nail Knite | Paris    |       0.13 |
+|        5007 | Paul Adam  | Rome     |       0.13 |
+|        5005 | Pit Alex   | London   |       0.11 |
+|        5008 | Rose Willy |          |       0.17 |
++-------------+------------+----------+------------+
+8 rows in set (0.00 sec)
+
+mysql> select * from salesman order by salesman_id;
++-------------+------------+----------+------------+
+| salesman_id | name       | city     | commission |
++-------------+------------+----------+------------+
+|        5001 | James hoog | New York |       0.15 |
+|        5002 | Nail Knite | Paris    |       0.13 |
+|        5003 | Lauson Hen | San Jose |       0.12 |
+|        5005 | Pit Alex   | London   |       0.11 |
+|        5006 | Mc Lyon    | Paris    |       0.14 |
+|        5007 | Paul Adam  | Rome     |       0.13 |
+|        5008 | Rose Willy |          |       0.17 |
+|        5009 | Lauson Hen | Itly     |       NULL |
++-------------+------------+----------+------------+
+8 rows in set (0.00 sec)
+
+mysql> select * from salesman order by salesman_id desc;
++-------------+------------+----------+------------+
+| salesman_id | name       | city     | commission |
++-------------+------------+----------+------------+
+|        5009 | Lauson Hen | Itly     |       NULL |
+|        5008 | Rose Willy |          |       0.17 |
+|        5007 | Paul Adam  | Rome     |       0.13 |
+|        5006 | Mc Lyon    | Paris    |       0.14 |
+|        5005 | Pit Alex   | London   |       0.11 |
+|        5003 | Lauson Hen | San Jose |       0.12 |
+|        5002 | Nail Knite | Paris    |       0.13 |
+|        5001 | James hoog | New York |       0.15 |
++-------------+------------+----------+------------+
+8 rows in set (0.00 sec)
+
+mysql> select * from salesman where city in('San Jose','Paris') order by salesman_id desc;
++-------------+------------+----------+------------+
+| salesman_id | name       | city     | commission |
++-------------+------------+----------+------------+
+|        5006 | Mc Lyon    | Paris    |       0.14 |
+|        5003 | Lauson Hen | San Jose |       0.12 |
+|        5002 | Nail Knite | Paris    |       0.13 |
++-------------+------------+----------+------------+
+3 rows in set (0.00 sec)
+
+mysql> select * from salesman where city in('San Jose','Paris') order by salesman_id;
++-------------+------------+----------+------------+
+| salesman_id | name       | city     | commission |
++-------------+------------+----------+------------+
+|        5002 | Nail Knite | Paris    |       0.13 |
+|        5003 | Lauson Hen | San Jose |       0.12 |
+|        5006 | Mc Lyon    | Paris    |       0.14 |
++-------------+------------+----------+------------+
+
+mysql> select * from salesman where city in('San Jose','Paris') order by name desc;
++-------------+------------+----------+------------+
+| salesman_id | name       | city     | commission |
++-------------+------------+----------+------------+
+|        5002 | Nail Knite | Paris    |       0.13 |
+|        5006 | Mc Lyon    | Paris    |       0.14 |
+|        5003 | Lauson Hen | San Jose |       0.12 |
++-------------+------------+----------+------------+
+3 rows in set (0.00 sec)
+3 rows in set (0.00 sec)
+
+mysql> select * from salesman where city in('Rome','London') order by salesman_id;
++-------------+-----------+--------+------------+
+| salesman_id | name      | city   | commission |
++-------------+-----------+--------+------------+
+|        5005 | Pit Alex  | London |       0.11 |
+|        5007 | Paul Adam | Rome   |       0.13 |
++-------------+-----------+--------+------------+
+2 rows in set (0.00 sec)
+
+mysql> select * from salesman where city in('New York','London') order by city;
++-------------+------------+----------+------------+
+| salesman_id | name       | city     | commission |
++-------------+------------+----------+------------+
+|        5005 | Pit Alex   | London   |       0.11 |
+|        5001 | James hoog | New York |       0.15 |
++-------------+------------+----------+------------+
+2 rows in set (0.00 sec)
+
+mysql> select * from salesman where name in('James Hoog','Paul Adam') order by commission;
++-------------+------------+----------+------------+
+| salesman_id | name       | city     | commission |
++-------------+------------+----------+------------+
+|        5007 | Paul Adam  | Rome     |       0.13 |
+|        5001 | James hoog | New York |       0.15 |
++-------------+------------+----------+------------+
+2 rows in set (0.00 sec)
+
+mysql> select name,city from salesman where commission>0.12 ;
++------------+----------+
+| name       | city     |
++------------+----------+
+| James hoog | New York |
+| Nail Knite | Paris    |
+| Mc Lyon    | Paris    |
+| Paul Adam  | Rome     |
+| Rose Willy |          |
++------------+----------+
+5 rows in set (0.00 sec)
+
+mysql> select * from salesman where commission>0.12 ;
++-------------+------------+----------+------------+
+| salesman_id | name       | city     | commission |
++-------------+------------+----------+------------+
+|        5001 | James hoog | New York |       0.15 |
+|        5002 | Nail Knite | Paris    |       0.13 |
+|        5006 | Mc Lyon    | Paris    |       0.14 |
+|        5007 | Paul Adam  | Rome     |       0.13 |
+|        5008 | Rose Willy |          |       0.17 |
++-------------+------------+----------+------------+
+5 rows in set (0.00 sec)
+
+mysql> select * from salesman where city='';
++-------------+------------+------+------------+
+| salesman_id | name       | city | commission |
++-------------+------------+------+------------+
+|        5008 | Rose Willy |      |       0.17 |
++-------------+------------+------+------------+
+1 row in set (0.00 sec)
+

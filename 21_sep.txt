@@ -1,0 +1,169 @@
+mysql> create table project(
+    -> pno int primary key,
+    -> pname varchar(20),
+    -> sdate date,
+    -> budget int,
+    -> status varchar(20) check(status='c' or status='p' or status='i')
+    -> );
+Query OK, 0 rows affected (0.11 sec)
+
+mysql> desc project;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| pno    | int         | NO   | PRI | NULL    |       |
+| pname  | varchar(20) | YES  |     | NULL    |       |
+| sdate  | date        | YES  |     | NULL    |       |
+| budget | int         | YES  |     | NULL    |       |
+| status | varchar(20) | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> insert into project(pno,pname,sdate,budget,status)values(1,'abc','09/mar/20',2300000,'c');
+ERROR 1292 (22007): Incorrect date value: '09/mar/20' for column 'sdate' at row 1
+mysql> insert into project(pno,pname,sdate,budget,status)values(1,'abc','09/03/20',2300000,'c');
+Query OK, 1 row affected, 1 warning (0.01 sec)
+
+mysql> insert into project(pno,pname,sdate,budget,status)values(2,'xyz','01/04/18',200000,'i');
+Query OK, 1 row affected, 1 warning (0.01 sec)
+
+mysql> insert into project(pno,pname,sdate,budget,status)values(3,'st','23/03/27',1200000,'p');
+Query OK, 1 row affected, 1 warning (0.07 sec)
+
+mysql> insert into project(pno,pname,sdate,budget,status)values(4,'vb','12/02/20',600000,'c');
+Query OK, 1 row affected, 1 warning (0.02 sec)
+
+mysql> insert into project(pno,pname,sdate,budget,status)values(5,'qrt','16/01/23',3400000,'p');
+Query OK, 1 row affected, 1 warning (0.07 sec)
+
+mysql> select * from project;
++-----+-------+------------+---------+--------+
+| pno | pname | sdate      | budget  | status |
++-----+-------+------------+---------+--------+
+|   1 | abc   | 2009-03-20 | 2300000 | c      |
+|   2 | xyz   | 2001-04-18 |  200000 | i      |
+|   3 | st    | 2023-03-27 | 1200000 | p      |
+|   4 | vb    | 2012-02-20 |  600000 | c      |
+|   5 | qrt   | 2016-01-23 | 3400000 | p      |
++-----+-------+------------+---------+--------+
+5 rows in set (0.00 sec)
+
+mysql> create table department(
+    -> dno int primary key,
+    -> dname varchar(20),
+    -> hod varchar(20),
+    -> loc varchar(20),
+    -> pno int references project(pno)
+    -> );
+Query OK, 0 rows affected (0.11 sec)
+
+mysql> desc department;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| dno   | int         | NO   | PRI | NULL    |       |
+| dname | varchar(20) | YES  |     | NULL    |       |
+| hod   | varchar(20) | YES  |     | NULL    |       |
+| loc   | varchar(20) | YES  |     | NULL    |       |
+| pno   | int         | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> insert into department(dno,dname,hod,loc,pno)values(101,'computer','desai','pune',1);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> insert into department(dno,dname,hod,loc,pno)values(102,'commerce','mane','pune',2);
+Query OK, 1 row affected (0.07 sec)
+
+mysql> insert into department(dno,dname,hod,loc,pno)values(103,'computer','kadam','pune',3);
+Query OK, 1 row affected (0.07 sec)
+
+mysql> insert into department(dno,dname,hod,loc,pno)values(104,'engineering','sam','pune',4);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> select *  from department;
++-----+-------------+-------+------+------+
+| dno | dname       | hod   | loc  | pno  |
++-----+-------------+-------+------+------+
+| 101 | computer    | desai | pune |    1 |
+| 102 | commerce    | mane  | pune |    2 |
+| 103 | computer    | kadam | pune |    3 |
+| 104 | engineering | sam   | pune |    4 |
++-----+-------------+-------+------+------+
+4 rows in set (0.00 sec)
+
+mysql> alter table department drop column loc;
+Query OK, 0 rows affected (0.09 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from department;
++-----+-------------+-------+------+
+| dno | dname       | hod   | pno  |
++-----+-------------+-------+------+
+| 101 | computer    | desai |    1 |
+| 102 | commerce    | mane  |    2 |
+| 103 | computer    | kadam |    3 |
+| 104 | engineering | sam   |    4 |
++-----+-------------+-------+------+
+4 rows in set (0.00 sec)
+
+mysql> select * from project where sdate>'12/02/20' and status='p';
++-----+-------+------------+---------+--------+
+| pno | pname | sdate      | budget  | status |
++-----+-------+------------+---------+--------+
+|   3 | st    | 2023-03-27 | 1200000 | p      |
+|   5 | qrt   | 2016-01-23 | 3400000 | p      |
++-----+-------+------------+---------+--------+
+2 rows in set, 1 warning (0.00 sec)
+
+mysql> select pname,dname from project,department where project.pno=department.pno and status='c';
++-------+-------------+
+| pname | dname       |
++-------+-------------+
+| abc   | computer    |
+| vb    | engineering |
++-------+-------------+
+2 rows in set (0.00 sec)
+
+mysql> select sum(budget) from project,department where project.pno=department.pno group by dname;
++-------------+
+| sum(budget) |
++-------------+
+|     3500000 |
+|      200000 |
+|      600000 |
++-------------+
+3 rows in set (0.00 sec)
+
+mysql> select pname,status,count(department.dno)from department,project where department.pno=project.pno and project.status='i' group by status,pname;
++-------+--------+-----------------------+
+| pname | status | count(department.dno) |
++-------+--------+-----------------------+
+| xyz   | i      |                     1 |
++-------+--------+-----------------------+
+1 row in set (0.08 sec)
+
+mysql> select pname from department,project where department.pno=project.pno and hod='desai';
++-------+
+| pname |
++-------+
+| abc   |
++-------+
+1 row in set (0.00 sec)
+
+mysql> select dname,hod from department,project where department.pno=project.pno order by dname;
++-------------+-------+
+| dname       | hod   |
++-------------+-------+
+| commerce    | mane  |
+| computer    | desai |
+| computer    | kadam |
+| engineering | sam   |
++-------------+-------+
+4 rows in set (0.00 sec)
+
+mysql> select pname,budget from project,department where department.pno=project.pno and budget=(select max(budget) from project);
+Empty set (0.00 sec)
+
+//8 mysql> select pname,budget from project,department where department.pno=project.pno and budget>100000 and pname='a%' order by budget desc;
+Empty set (0.00 sec)
