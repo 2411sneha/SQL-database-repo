@@ -44,3 +44,34 @@ mysql> select * from department_info;
 |    4 | harshda  | computer science |  80000 |
 +------+----------+------------------+--------+
 4 rows in set (0.00 sec)
+
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Q2.  Write a JDBC program to  display  the records of employees whose names are starting with ‘A’ character.
+
+Driver Register
+Enter department Name letter : 
+c
+1	sneha	computer science
+4	harshda	computer science
+
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Q3.Write a JDBC program to delete the records of employees whose names are starting with ‘A’ character.
+
+Driver Register
+Connection success
+Enter department name letter : 
+z
+Deleted Success
+
+mysql> select * from department_info;
++------+---------+------------------+--------+
+| eno  | ename   | dept_name        | salary |
++------+---------+------------------+--------+
+|    1 | sneha   | computer science |  58000 |
+|    2 | yogita  | biology          |  50000 |
+|    4 | harshda | computer science |  80000 |
++------+---------+------------------+--------+
+3 rows in set (0.00 sec)
+
