@@ -1,0 +1,46 @@
+Q1. Write a JDBC program to displays the details of employees (eno, ename, department,sal) whose department is “Computer Science”.
+
+mysql> use advjava;
+Databse changed
+
+mysql> create table department_info(
+    -> eno int,
+    -> ename varchar(20),
+    -> dept_name varchar(30),
+    -> salary double
+    -> );
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> desc department_info;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| eno       | int         | YES  |     | NULL    |       |
+| ename     | varchar(20) | YES  |     | NULL    |       |
+| dept_name | varchar(30) | YES  |     | NULL    |       |
+| salary    | double      | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+
+mysql> insert into department_info values(1,'sneha','computer science',58000);
+Query OK, 1 row affected (0.07 sec)
+
+mysql> insert into department_info values(2,'yogita','biology',50000);
+Query OK, 1 row affected (0.07 sec)
+
+mysql> insert into department_info values(3,'priyanka','zoology',450000);
+Query OK, 1 row affected (0.07 sec)
+
+mysql> insert into department_info values(4,'harshda','computer science',80000);
+Query OK, 1 row affected (0.07 sec)
+
+mysql> select * from department_info;
++------+----------+------------------+--------+
+| eno  | ename    | dept_name        | salary |
++------+----------+------------------+--------+
+|    1 | sneha    | computer science |  58000 |
+|    2 | yogita   | biology          |  50000 |
+|    3 | priyanka | zoology          | 450000 |
+|    4 | harshda  | computer science |  80000 |
++------+----------+------------------+--------+
+4 rows in set (0.00 sec)

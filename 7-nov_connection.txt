@@ -1,0 +1,73 @@
+Q1.Employee (insert values)
+
+mysql> create database advjava;					
+Query OK, 1 row affected (0.04 sec)
+
+mysql> use advjava;
+Database changed
+mysql> create table employee(
+    -> id int,
+    -> ename varchar(30),
+    -> salary float,
+    -> designation varchar(20),
+    -> email varchar(20)
+    -> );
+Query OK, 0 rows affected (0.07 sec)
+
+mysql> select * from employee;
+Empty set (0.02 sec)
+
+mysql> desc employee;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| id          | int         | YES  |     | NULL    |       |
+| ename       | varchar(30) | YES  |     | NULL    |       |
+| salary      | float       | YES  |     | NULL    |       |
+| designation | varchar(20) | YES  |     | NULL    |       |
+| email       | varchar(20) | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+5 rows in set (0.04 sec)
+
+mysql> select * from employee;
++------+-------+--------+-------------+---------------+
+| id   | ename | salary | designation | email         |
++------+-------+--------+-------------+---------------+
+|  109 | abc   |    4.5 | ceo         | abc@gmail.com |
++------+-------+--------+-------------+---------------+
+1 row in set (0.00 sec)
+
+
+Q2.Book (insert values)
+
+mysql> create table book(
+    -> bid int,
+    -> bname varchar(20),
+    -> author varchar(20),
+    -> publication varchar(20),
+    -> price float
+    -> );
+Query OK, 0 rows affected (0.16 sec)
+
+mysql> select * from book;
+Empty set (0.08 sec)
+
+mysql> desc book;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| bid         | int         | YES  |     | NULL    |       |
+| bname       | varchar(20) | YES  |     | NULL    |       |
+| author      | varchar(20) | YES  |     | NULL    |       |
+| publication | varchar(20) | YES  |     | NULL    |       |
+| price       | float       | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> select * from book;
++------+--------+--------+-------------+-------+
+| bid  | bname  | author | publication | price |
++------+--------+--------+-------------+-------+
+|   34 | asdfgh | yhnghj | ghjikjm     |   345 |
++------+--------+--------+-------------+-------+
+1 row in set (0.00 sec)
